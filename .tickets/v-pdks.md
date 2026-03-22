@@ -1,6 +1,6 @@
 ---
 id: v-pdks
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-03-22T10:24:45Z
@@ -50,11 +50,11 @@ Don't try to unify the three SDK methods — they have legitimately different be
 
 ## Acceptance Criteria
 
-- [ ] `vasig balance --include-tokens --fiat` never crashes — pricing failures are caught per-chain
-- [ ] Tokens that can't be priced are included in output with `fiatValue` omitted (not silently dropped)
-- [ ] `vasig balance --chain Solana --include-tokens --fiat` returns SOL with fiat + PUMP without fiat (not crash)
-- [ ] Works correctly in both table and JSON output modes
-- [ ] Lint and type-check pass
+- [x] `vasig balance --include-tokens --fiat` never crashes — pricing failures are caught per-chain
+- [x] Tokens that can't be priced are included in output with `fiatValue` omitted (not silently dropped)
+- [x] `vasig balance --chain Solana --include-tokens --fiat` returns SOL with fiat + PUMP without fiat (not crash)
+- [x] Works correctly in both table and JSON output modes
+- [x] Lint and type-check pass
 
 ## Gotchas
 

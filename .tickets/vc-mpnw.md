@@ -164,3 +164,15 @@ The SDK should either:
 - [ ] `balancesWithPrices()` gracefully handles non-EVM token pricing (returns null/0 instead of throwing)
 - [ ] Swap quote provider selection rejects near-zero output amounts, or tries alternative providers
 - [ ] Solana outbound signing works reliably (currently 0% success rate — large tx payloads ~500+ bytes cause consistent MPC timeouts)
+
+## Notes
+
+**2026-03-22T11:25:09Z**
+
+## SDK Opportunities from CLI Validation Work (v-kdfq)
+
+The CLI (vasig) is working around several things the SDK should own:
+
+- **`resolveChain()`** — case-insensitive chain name resolution with "did you mean?" suggestions. Currently implemented in vasig's lib/validation.ts, but every SDK consumer needs this. Should live in the SDK alongside SUPPORTED_CHAINS.
+- **Chain metadata** — vasig hardcodes an EVM_CHAINS list to reject memos on EVM chains. SUPPORTED_CHAINS should export chain metadata (isEVM, supportsMemo, nativeToken, etc.) so consumers don't maintain their own lists.
+- **Clean error messages** — vasig's classifyError() cleans up viem/LI.FI error dumps into human-friendly messages. The SDK should throw clean errors at the source instead of leaking library internals.
