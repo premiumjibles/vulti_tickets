@@ -15,7 +15,7 @@ Proposal for how we work. Read it, disagree with anything, suggest changes. Noth
 ## What We're NOT Doing
 
 - Sprints, story points, velocity tracking
-- Jira or any heavyweight ticket system
+- Linear or any heavyweight ticket system
 - Daily standups or mandatory status writes
 - Blocking PR reviews (except for signing/key material)
 - Code coverage targets
@@ -46,7 +46,7 @@ Missions are shaped pieces of work with a clear goal and a timebox (appetite). T
 
 **Domains are the map. Missions are the journeys across it.**
 
-A mission is NOT a Jira ticket. It's a 1-page pitch shaped by the lead:
+A mission is NOT a Linear ticket. It's a 1-page pitch shaped by the lead:
 - **Goal**: what "done" looks like
 - **Appetite**: how much time this is worth (not an estimate, a decision)
 - **Intent**: "if nothing else, achieve X because Y"
