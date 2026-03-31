@@ -4,38 +4,22 @@ Proposal for how we work. Read it, disagree with anything, suggest changes. Noth
 
 ---
 
-## How This Repo Works
+## What We're Optimizing For
 
-This repo (`vultisig/`) is the team hub. Product repos are nested underneath, gitignored, independently version controlled. Open Claude Code from here and it sees everything — team config, missions, decisions, and all sub-repos.
+- **Speed over process.** If a process doesn't directly help us ship, we don't do it.
+- **AI-first workflows.** Every engineer runs AI coding agents as their primary tool. Our processes, tooling, and documentation are designed for AI agents as much as humans.
+- **Autonomy with alignment.** Engineers own their work end-to-end — self-decompose, self-test, self-merge. Alignment comes from shaped missions and shared conventions, not approvals and gates.
+- **Low friction coordination.** 4 senior engineers shouldn't need meetings, tickets, or status reports to stay in sync. Automation and clear ownership handle most of it.
+- **Move fast, break things (together).** New project, full ownership, no backwards compatibility. Speed is the advantage — but coordinated speed, not chaos.
 
-```
-vultisig/                        # hub repo — open Claude Code here
-├── CLAUDE.md                    # team conventions (inherited by all sessions)
-├── operating-model.md           # this doc (finalized)
-├── biome.json                   # shared lint/format config
-├── missions/                    # shaped mission pitches
-├── decisions/                   # architecture decision records
-│
-├── vultiagent-app/              # gitignored, independent repo
-├── vultisig-sdk/                # gitignored, independent repo
-├── agent-backend/               # gitignored, independent repo
-└── vasig/                       # gitignored, independent repo
-```
+## What We're NOT Doing
 
-Each sub-repo has its own CLAUDE.md for repo-specific context (build commands, architecture). Claude Code reads parent CLAUDE.md files automatically, so team conventions apply everywhere.
-
-GH Issues and milestones live on this hub repo. PRs live on individual product repos and reference hub issues with `vultisig/vultisig#42`.
-
-### Setup
-
-```bash
-git clone git@github.com:vultisig/vultisig.git
-cd vultisig
-git clone git@github.com:vultisig/vultiagent-app.git
-git clone git@github.com:vultisig/vultisig-sdk.git
-git clone git@github.com:vultisig/agent-backend.git
-git clone git@github.com:vultisig/vasig.git
-```
+- Sprints, story points, velocity tracking
+- Jira or any heavyweight ticket system
+- Daily standups or mandatory status writes
+- Blocking PR reviews (except for signing/key material)
+- Code coverage targets
+- Backlog grooming — unshaped work lives in a "raw ideas" list, gets shaped or discarded
 
 ---
 
@@ -138,6 +122,41 @@ Biome config is shared from this hub repo. Each product repo extends or copies i
 
 ---
 
+## Hub Repo
+
+This repo is the team coordination center. Product repos are nested underneath, gitignored, independently version controlled. Open Claude Code from here and it sees everything — team config, missions, decisions, and all sub-repos.
+
+```
+vultisig/                        # hub repo — open Claude Code here
+├── CLAUDE.md                    # team conventions (inherited by all sessions)
+├── operating-model.md           # this doc (finalized)
+├── biome.json                   # shared lint/format config
+├── missions/                    # shaped mission pitches
+├── decisions/                   # architecture decision records
+│
+├── vultiagent-app/              # gitignored, independent repo
+├── vultisig-sdk/                # gitignored, independent repo
+├── agent-backend/               # gitignored, independent repo
+└── vasig/                       # gitignored, independent repo
+```
+
+Each sub-repo has its own CLAUDE.md for repo-specific context (build commands, architecture). Claude Code reads parent CLAUDE.md files automatically, so team conventions apply everywhere.
+
+GH Issues and milestones live on this hub repo. PRs live on individual product repos and reference hub issues.
+
+### Setup
+
+```bash
+git clone git@github.com:vultisig/vultisig.git
+cd vultisig
+git clone git@github.com:vultisig/vultiagent-app.git
+git clone git@github.com:vultisig/vultisig-sdk.git
+git clone git@github.com:vultisig/agent-backend.git
+git clone git@github.com:vultisig/vasig.git
+```
+
+---
+
 ## Proposed CLAUDE.md (Hub Level)
 
 This is the team constitution. Every Claude Code session inherits it. We update it frequently as we learn what works.
@@ -225,18 +244,6 @@ First pass based on the roadmap. Each mission is roughly 1-2 weeks of appetite.
 | **Adversarial multi-agent signing** — growth agent vs risk agent, structured debate protocol, both must approve | Agent Backend, SDK Core |
 | **Decision audit trail** — log every debate, argument, and decision for user review | Agent Backend, Client Surfaces |
 | **End-to-end autonomous demo** — deploy agents, detect opportunity, debate, co-sign, execute, notify | All domains |
-
----
-
-## What We're NOT Doing
-
-- Sprints, story points, velocity tracking
-- Jira or any heavyweight ticket system
-- Daily standups or mandatory status writes
-- Blocking PR reviews (except for signing/key material)
-- Code coverage targets
-- Backlog grooming — unshaped work lives in a "raw ideas" list, gets shaped or discarded
-- Backwards compatibility (new project, full ownership)
 
 ---
 
