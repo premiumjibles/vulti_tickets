@@ -427,6 +427,98 @@
         }
 
         /* ===========================================
+           BENCHMARK TABLES
+           =========================================== */
+        .model-table {
+            width: 100%;
+            overflow: hidden;
+        }
+        .model-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--small-size);
+        }
+        .model-table th {
+            font-family: var(--font-mono);
+            font-size: var(--mono-size);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-align: left;
+            padding: clamp(0.3rem, 0.6vh, 0.5rem) clamp(0.4rem, 1vw, 0.75rem);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.15);
+        }
+        .model-table td {
+            padding: clamp(0.3rem, 0.6vh, 0.5rem) clamp(0.4rem, 1vw, 0.75rem);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+            font-size: var(--small-size);
+        }
+        .model-table td.mono {
+            font-family: var(--font-mono);
+            font-size: var(--mono-size);
+        }
+        .model-row--winner td {
+            color: var(--text-primary);
+        }
+        .model-row--veto td {
+            opacity: 0.5;
+        }
+        .verdict {
+            font-family: var(--font-mono);
+            font-size: clamp(0.55rem, 0.8vw, 0.75rem);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.15em 0.5em;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        .verdict--go {
+            color: var(--cyan);
+            background: var(--cyan-dim);
+        }
+        .verdict--maybe {
+            color: var(--amber);
+            background: var(--amber-dim);
+        }
+        .verdict--no {
+            color: var(--magenta);
+            background: var(--magenta-dim);
+        }
+
+        /* Methodology cards */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+        }
+        @media (max-width: 700px) {
+            .method-grid { grid-template-columns: 1fr; }
+        }
+        .method-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 204, 0.08);
+            border-radius: clamp(6px, 1vw, 12px);
+            padding: clamp(0.6rem, 1.2vw, 1rem);
+        }
+        .method-card h3 {
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);
+            color: var(--text-primary);
+        }
+        .method-card p {
+            font-size: var(--small-size);
+            line-height: 1.35;
+        }
+        .method-num {
+            font-family: var(--font-mono);
+            font-size: var(--mono-size);
+            color: var(--cyan);
+            letter-spacing: 0.1em;
+            margin-bottom: clamp(0.1rem, 0.2vh, 0.2rem);
+        }
+
+        /* ===========================================
            SCROLL ANIMATIONS
            =========================================== */
         .reveal {
@@ -959,7 +1051,662 @@
     </section>
 
     <!-- ===========================================
-         SLIDE 12: END STATE / VISION
+         SLIDE 12: SECTION TRANSITION — COMMERCIALS
+         =========================================== -->
+    <section class="slide title-slide" aria-label="Commercials Section">
+        <div class="title-orb title-orb--1" style="opacity: 0.15;"></div>
+        <div class="title-orb title-orb--2" style="opacity: 0.15;"></div>
+
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h1 class="reveal" style="font-size: var(--h2-size); background: linear-gradient(135deg, var(--amber), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">How Much Does an AI Wallet Cost to Run?</h1>
+            <p class="subtitle reveal" style="max-width: min(50ch, 80vw);">We benchmarked 9 LLMs end-to-end to find the optimal cost/quality tradeoff, and a sustainable free tier.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 13: TESTING METHODOLOGY
+         =========================================== -->
+    <section class="slide" aria-label="Testing Methodology">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">How We Tested</h2>
+            <p class="section-desc reveal">End-to-end benchmarks against the real agent backend. No mocks, no simulations.</p>
+
+            <div class="method-grid reveal">
+                <div class="method-card">
+                    <div class="method-num">01</div>
+                    <h3>Live Infrastructure</h3>
+                    <p>Real agent backend, PostgreSQL, Redis, 66 live MCP tools. Each test creates a fresh conversation and hits the full AI pipeline.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">02</div>
+                    <h3>9 Models via OpenRouter</h3>
+                    <p>Per-request model override. Same system prompt, same tools, same operations. Apples-to-apples comparison across providers.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">03</div>
+                    <h3>13 Operation Types</h3>
+                    <p>6 core wallet ops (chat, balance, address, token search, send, swap) + 4 ambiguous prompts + 3 error recovery scenarios.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">04</div>
+                    <h3>2&ndash;3 Reps Each</h3>
+                    <p>Every model &times; operation tested multiple times. 339 total API calls. Token usage, latency, and cost recorded in the DB automatically.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">05</div>
+                    <h3>Multi-Turn &amp; Caching</h3>
+                    <p>5-turn extended conversations to measure context accumulation cost. Cache detection tests to identify prompt caching opportunities.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">06</div>
+                    <h3>Quality Assessment</h3>
+                    <p>Every response reviewed for: correct tool selection, graceful error handling, response formatting, and hallucinations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 13: MODEL ANALYSIS
+         =========================================== -->
+    <section class="slide" aria-label="Model Analysis">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">Model Benchmarking: 9 LLMs Tested</h2>
+            <p class="section-desc reveal">339 API calls across 13 operation types. Real agent backend, 66 live MCP tools.</p>
+
+            <div class="model-table reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Cost/Op</th>
+                            <th>Latency</th>
+                            <th>Success</th>
+                            <th>Verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="model-row--winner">
+                            <td>Gemini 2.5 Flash</td>
+                            <td class="mono">$0.003</td>
+                            <td class="mono">3.2s</td>
+                            <td class="mono">100%</td>
+                            <td><span class="verdict verdict--go">Best Value</span></td>
+                        </tr>
+                        <tr>
+                            <td>Claude Haiku 4.5</td>
+                            <td class="mono">$0.029</td>
+                            <td class="mono">5.7s</td>
+                            <td class="mono">100%</td>
+                            <td><span class="verdict verdict--go">Best Anthropic</span></td>
+                        </tr>
+                        <tr>
+                            <td>Claude Sonnet 4</td>
+                            <td class="mono">$0.134</td>
+                            <td class="mono">6.8s</td>
+                            <td class="mono">100%</td>
+                            <td><span class="verdict verdict--maybe">Premium Only</span></td>
+                        </tr>
+                        <tr>
+                            <td>DeepSeek V3.2</td>
+                            <td class="mono">$0.013</td>
+                            <td class="mono">17.6s</td>
+                            <td class="mono">100%</td>
+                            <td><span class="verdict verdict--maybe">Too Slow</span></td>
+                        </tr>
+                        <tr class="model-row--veto">
+                            <td>Llama 4 Maverick</td>
+                            <td class="mono">$0.004</td>
+                            <td class="mono">3.1s</td>
+                            <td class="mono">97%</td>
+                            <td><span class="verdict verdict--no">Leaks Syntax</span></td>
+                        </tr>
+                        <tr class="model-row--veto">
+                            <td>Claude Opus 4</td>
+                            <td class="mono">$0.065</td>
+                            <td class="mono">14.0s</td>
+                            <td class="mono">100%</td>
+                            <td><span class="verdict verdict--no">$20 in 7min</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="table-footnote reveal" style="font-size: var(--small-size); color: var(--text-muted); margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">Qwen3, MiniMax, Mistral omitted, too slow or no advantage over shortlisted models.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 13: TIERED MODEL ARCHITECTURE
+         =========================================== -->
+    <section class="slide" aria-label="Tiered Architecture">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">How the Routing Works</h2>
+            <p class="section-desc reveal">Three models, one routing layer. The model upgrades with the operation complexity.</p>
+
+            <div class="feature-grid feature-grid--3x2 reveal" style="grid-template-rows: auto;">
+                <div class="feature-card" style="border-left: 3px solid var(--cyan);">
+                    <h3 style="color: var(--cyan); font-size: clamp(0.85rem, 1.2vw, 1rem);">Gemini Flash, $0.003/op</h3>
+                    <p style="font-size: var(--small-size);">Chat, balances, sends, simple swaps, token lookups. ~70% of all traffic. Free &amp; unlimited for everyone.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--magenta);">
+                    <h3 style="color: var(--magenta); font-size: clamp(0.85rem, 1.2vw, 1rem);">Claude Haiku, $0.03/op</h3>
+                    <p style="font-size: var(--small-size);">Cross-chain swaps, staking, optimal routing. Premium ops on Free &amp; Pro tiers. 100% success, 2 avg loops.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--amber);">
+                    <h3 style="color: var(--amber); font-size: clamp(0.85rem, 1.2vw, 1rem);">Claude Sonnet, $0.13/op</h3>
+                    <p style="font-size: var(--small-size);">Stop-loss, TWAP, dust sweeping, autonomous agents. Premium ops on Power tier. Best tool-calling accuracy.</p>
+                </div>
+            </div>
+
+            <div class="cost-lever reveal" style="background: var(--bg-card); border: 1px solid rgba(255, 170, 0, 0.2); border-radius: clamp(6px, 1vw, 12px); padding: clamp(0.8rem, 1.5vw, 1.25rem); margin-top: clamp(0.5rem, 1vh, 0.75rem); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(0.5rem, 1.5vw, 1.25rem);">
+                <div>
+                    <h3 style="color: var(--amber); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Cut Prompt Size 50%</h3>
+                    <p style="font-size: var(--small-size);">82% of every request is fixed overhead. Trim system prompt + filter tools by intent. Halves all costs. Ships Phase 1.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--amber); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Anthropic Prompt Caching</h3>
+                    <p style="font-size: var(--small-size);">Direct API migration. System prompt prefix identical across all users,65% further reduction on Haiku/Sonnet. Ships Phase 2.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--amber); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Swap Affiliate Revenue</h3>
+                    <p style="font-size: var(--small-size);">0.3% on THORChain/DEX swaps &rarr; ~$1.50/active user/month. Covers 2&times; free tier cost. Revenue scales with usage.</p>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">LLM costs have dropped ~10&times; in 18 months. Architecture is model-agnostic, provider swaps are a config change.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 14: COST PROJECTIONS
+         =========================================== -->
+    <section class="slide" aria-label="Cost Projections">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">Monthly Cost at Scale</h2>
+            <p class="section-desc reveal">Per-user costs with hybrid routing. Assumes 40 sessions/month, 5 turns/session.</p>
+
+            <div class="model-table reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="opacity: 0.4;">Today</th>
+                            <th>Hybrid Routing</th>
+                            <th>+ Prompt Cut</th>
+                            <th style="background: var(--cyan-dim); border-radius: 4px;">Target State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span style="color: var(--text-primary);">Free</span> <span style="font-size: clamp(0.55rem, 0.7vw, 0.7rem); color: var(--text-muted);">cost/user</span></td>
+                            <td class="mono" style="opacity: 0.4; text-decoration: line-through;">$22.31</td>
+                            <td class="mono">$0.75</td>
+                            <td class="mono" style="color: var(--amber);">$0.40</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">$0.25</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: var(--magenta);">Pro $10</span> <span style="font-size: clamp(0.55rem, 0.7vw, 0.7rem); color: var(--text-muted);">cost/user</span></td>
+                            <td class="mono" style="opacity: 0.4; text-decoration: line-through;">$22.31</td>
+                            <td class="mono">$4.00</td>
+                            <td class="mono" style="color: var(--amber);">$2.00</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">$1.30</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: var(--amber);">Power $30</span> <span style="font-size: clamp(0.55rem, 0.7vw, 0.7rem); color: var(--text-muted);">cost/user avg</span></td>
+                            <td class="mono" style="opacity: 0.4; text-decoration: line-through;">$22.31</td>
+                            <td class="mono">$25</td>
+                            <td class="mono" style="color: var(--amber);">$12.50</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">$8</td>
+                        </tr>
+                        <tr style="border-top: 1px solid rgba(0,255,204,0.15);">
+                            <td><span style="color: var(--text-muted);">Pro margin</span></td>
+                            <td class="mono" style="opacity: 0.4;">&mdash;</td>
+                            <td class="mono">2.5&times;</td>
+                            <td class="mono" style="color: var(--amber);">5&times;</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim); font-weight: 700;">7.7&times;</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: var(--text-muted);">Power margin</span></td>
+                            <td class="mono" style="opacity: 0.4;">&mdash;</td>
+                            <td class="mono" style="color: var(--magenta);">1.2&times;</td>
+                            <td class="mono" style="color: var(--amber);">2.4&times;</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim); font-weight: 700;">3.75&times;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="stats-row reveal" style="margin-top: clamp(0.75rem, 1.5vh, 1.5rem);">
+                <div>
+                    <div class="stat-value" style="color: var(--cyan);">2.5&times; &rarr; 7.7&times;</div>
+                    <div class="stat-label">Pro Margin Journey</div>
+                </div>
+                <div>
+                    <div class="stat-value" style="color: var(--amber);">1.2&times; &rarr; 3.75&times;</div>
+                    <div class="stat-label">Power Margin Journey</div>
+                </div>
+                <div>
+                    <div class="stat-value" style="color: var(--magenta);">10&times;</div>
+                    <div class="stat-label">LLM Cost Drop / 18mo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 15: SUBSCRIPTION MODEL
+         =========================================== -->
+    <section class="slide" aria-label="Subscription Model">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">What Users See</h2>
+            <p class="section-desc reveal">Unlimited basics. Premium ops metered. Nobody ever gets cut off.</p>
+
+            <div class="phase-row reveal">
+                <div class="phase-card phase-card--1">
+                    <span class="phase-num">Free</span>
+                    <h3>Explorer</h3>
+                    <p style="font-family: var(--font-display); font-size: var(--h3-size); color: var(--text-primary); margin-bottom: clamp(0.2rem, 0.4vh, 0.3rem);">$0</p>
+                    <p style="font-size: var(--small-size);"><strong style="color: var(--text-primary);">25 premium ops/mo</strong></p>
+                    <p style="font-size: var(--small-size);">Unlimited chat, balances, sends, simple swaps</p>
+                    <p style="font-size: var(--small-size);">Cross-chain swaps &amp; staking (25/mo)</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted);">After quota: still works, lower quality</p>
+                </div>
+                <div class="phase-card phase-card--2">
+                    <span class="phase-num">Pro</span>
+                    <h3>Active Trader</h3>
+                    <p style="font-family: var(--font-display); font-size: var(--h3-size); color: var(--text-primary); margin-bottom: clamp(0.2rem, 0.4vh, 0.3rem);">$10<span style="font-size: var(--small-size); color: var(--text-secondary);"> /mo</span></p>
+                    <p style="font-size: var(--small-size);"><strong style="color: var(--text-primary);">100 premium ops/mo</strong></p>
+                    <p style="font-size: var(--small-size);">Everything in Free</p>
+                    <p style="font-size: var(--small-size);">Cross-chain swaps, staking, optimal routing</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted);">After quota: graceful downgrade</p>
+                </div>
+                <div class="phase-card phase-card--3">
+                    <span class="phase-num">Power</span>
+                    <h3>Power User</h3>
+                    <p style="font-family: var(--font-display); font-size: var(--h3-size); color: var(--text-primary); margin-bottom: clamp(0.2rem, 0.4vh, 0.3rem);">$30<span style="font-size: var(--small-size); color: var(--text-secondary);"> /mo</span></p>
+                    <p style="font-size: var(--small-size);"><strong style="color: var(--text-primary);">1,000 premium ops/mo</strong></p>
+                    <p style="font-size: var(--small-size);">Everything in Pro</p>
+                    <p style="font-size: var(--small-size);">Stop-loss, TWAP, dust sweeping, autonomous agents</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted);">$0.10/op overage beyond 1,000</p>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">Power tier launches with 2&ndash;3 exclusive features (stop-loss, TWAP minimum). No tier launches without its value prop.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 18: PATH TO PROFITABILITY
+         =========================================== -->
+    <section class="slide" aria-label="Path to Profitability">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">Path to Profitability</h2>
+            <p class="section-desc reveal">Base case: 10K users at 80% free / 15% Pro / 5% Power. Revenue vs. cost by optimization phase.</p>
+
+            <div class="model-table reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>10K Users (Base Case)</th>
+                            <th>Revenue</th>
+                            <th>Cost</th>
+                            <th style="background: var(--cyan-dim); border-radius: 4px;">Net Margin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span style="color: var(--text-primary);">Free</span> <span style="font-size: clamp(0.55rem, 0.7vw, 0.7rem); color: var(--text-muted);">8,000 users</span></td>
+                            <td class="mono">$0</td>
+                            <td class="mono">$6,000</td>
+                            <td class="mono" style="color: var(--magenta); background: var(--cyan-dim);">-$6,000</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: var(--magenta);">Pro</span> <span style="font-size: clamp(0.55rem, 0.7vw, 0.7rem); color: var(--text-muted);">1,500 users</span></td>
+                            <td class="mono">$15,000</td>
+                            <td class="mono">$6,000</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">+$9,000</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: var(--amber);">Power</span> <span style="font-size: clamp(0.55rem, 0.7vw, 0.7rem); color: var(--text-muted);">500 users</span></td>
+                            <td class="mono">$15,000</td>
+                            <td class="mono">$12,500</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">+$2,500</td>
+                        </tr>
+                        <tr style="border-top: 2px solid rgba(0,255,204,0.25);">
+                            <td><strong style="color: var(--text-primary);">Total (launch)</strong></td>
+                            <td class="mono" style="color: var(--text-primary);"><strong>$30,000</strong></td>
+                            <td class="mono" style="color: var(--text-primary);"><strong>$24,500</strong></td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);"><strong>+$5,500</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--amber);">Total (post-optimization)</strong></td>
+                            <td class="mono" style="color: var(--text-primary);"><strong>$30,000</strong></td>
+                            <td class="mono" style="color: var(--amber);"><strong>$10,500</strong></td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);"><strong>+$19,500</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="stats-row reveal" style="margin-top: clamp(0.75rem, 1.5vh, 1.25rem);">
+                <div>
+                    <div class="stat-value" style="color: var(--cyan);">$5.5K</div>
+                    <div class="stat-label">Net Margin / Mo (Launch)</div>
+                </div>
+                <div>
+                    <div class="stat-value" style="color: var(--cyan);">$19.5K</div>
+                    <div class="stat-label">Net Margin / Mo (Optimized)</div>
+                </div>
+                <div>
+                    <div class="stat-value" style="color: var(--amber);">+ $1.50</div>
+                    <div class="stat-label">Affiliate Rev / Active User</div>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.15rem, 0.3vh, 0.25rem);">Profitable at launch with 10K users. Prompt trimming ships Phase 1, API caching Phase 2, Power tier reaches 3.75&times; margin by Phase 2. Affiliate revenue not included above.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 19: SCALING TO $150K MRR
+         =========================================== -->
+    <section class="slide" aria-label="Scaling to 150K MRR">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">How We Hit $150K MRR</h2>
+            <p class="section-desc reveal">Three scenarios by conversion rate. Affiliate revenue ($1.50/active swapper, ~30% of users) included.</p>
+
+            <div class="phase-row reveal">
+                <div class="phase-card phase-card--3" style="text-align: center;">
+                    <span class="phase-num">Pessimistic</span>
+                    <p style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; color: var(--text-primary); line-height: 1; margin: clamp(0.2rem, 0.5vh, 0.4rem) 0;">81K</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted); margin-bottom: clamp(0.3rem, 0.8vh, 0.6rem);">total users needed</p>
+                    <div style="text-align: left; font-size: var(--small-size); display: flex; flex-direction: column; gap: clamp(0.15rem, 0.3vh, 0.25rem);">
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-muted);">90% Free</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$0</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--magenta);">8% Pro (6.5K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$65K</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--amber);">2% Power (1.6K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$49K</span></div>
+                        <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.08); padding-top: clamp(0.1rem, 0.2vh, 0.15rem);"><span style="color: var(--cyan);">Affiliate (24K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$36K</span></div>
+                    </div>
+                </div>
+                <div class="phase-card phase-card--1" style="text-align: center; border-left-width: 4px;">
+                    <span class="phase-num">Realistic</span>
+                    <p style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; color: var(--cyan); line-height: 1; margin: clamp(0.2rem, 0.5vh, 0.4rem) 0;">43K</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted); margin-bottom: clamp(0.3rem, 0.8vh, 0.6rem);">total users needed</p>
+                    <div style="text-align: left; font-size: var(--small-size); display: flex; flex-direction: column; gap: clamp(0.15rem, 0.3vh, 0.25rem);">
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-muted);">80% Free</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$0</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--magenta);">15% Pro (6.5K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$65K</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--amber);">5% Power (2.2K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$65K</span></div>
+                        <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.08); padding-top: clamp(0.1rem, 0.2vh, 0.15rem);"><span style="color: var(--cyan);">Affiliate (13K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$20K</span></div>
+                    </div>
+                </div>
+                <div class="phase-card phase-card--2" style="text-align: center;">
+                    <span class="phase-num">Optimistic</span>
+                    <p style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; color: var(--text-primary); line-height: 1; margin: clamp(0.2rem, 0.5vh, 0.4rem) 0;">28K</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted); margin-bottom: clamp(0.3rem, 0.8vh, 0.6rem);">total users needed</p>
+                    <div style="text-align: left; font-size: var(--small-size); display: flex; flex-direction: column; gap: clamp(0.15rem, 0.3vh, 0.25rem);">
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-muted);">70% Free</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$0</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--magenta);">20% Pro (5.6K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$56K</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--amber);">10% Power (2.8K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$84K</span></div>
+                        <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.08); padding-top: clamp(0.1rem, 0.2vh, 0.15rem);"><span style="color: var(--cyan);">Affiliate (8.4K)</span><span class="mono" style="font-family: var(--font-mono); font-size: var(--mono-size);">$13K</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">Affiliate: 0.3% on swap volume, est. $1.50/active swapper/mo, ~30% of users swap monthly. Not dependent on subscription conversion.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE: REVENUE BEYOND SUBSCRIPTIONS
+         =========================================== -->
+    <section class="slide" aria-label="Revenue Beyond Subscriptions">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Business Model</div>
+            <h2 class="reveal">Revenue Beyond Subscriptions</h2>
+            <p class="section-desc reveal">Consumer subs are the floor. The MCP server turns Vulti Agent from an app into infrastructure.</p>
+
+            <div class="model-table reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Revenue Stream</th>
+                            <th>Phase</th>
+                            <th>Model</th>
+                            <th>Year 1 Potential</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--text-primary);">Consumer subs</td>
+                            <td class="mono">1</td>
+                            <td>Free / $10 Pro / $30 Power</td>
+                            <td class="mono">$360K&ndash;$1.8M</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Swap affiliate</td>
+                            <td class="mono">1</td>
+                            <td>0.3% on THORChain / DEX volume</td>
+                            <td class="mono">Scales w/ users</td>
+                        </tr>
+                        <tr class="model-row--winner">
+                            <td style="color: var(--cyan);">API / MCP licensing</td>
+                            <td class="mono">1</td>
+                            <td>1K free calls/mo, $0.005&ndash;0.01/call. Tiers at $49/$199/$499</td>
+                            <td class="mono" style="color: var(--cyan);">$500K&ndash;900K</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Ecosystem grants</td>
+                            <td class="mono">1</td>
+                            <td>Chain grant programs (Sui, Base, Sei all active)</td>
+                            <td class="mono">$500K&ndash;1M</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Protocol partnerships</td>
+                            <td class="mono">2</td>
+                            <td>Default routing fees, featured placement</td>
+                            <td class="mono">$60K&ndash;240K</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">White-label wallet</td>
+                            <td class="mono">2</td>
+                            <td>Per-active-wallet ($0.02/wallet/mo) + integration fees</td>
+                            <td class="mono">$200K&ndash;500K</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Enterprise DAO custody</td>
+                            <td class="mono">3</td>
+                            <td>Annual SaaS, $10K&ndash;50K/yr per org. AI-native multisig</td>
+                            <td class="mono">$250K&ndash;500K</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="stats-row reveal" style="margin-top: clamp(0.75rem, 1.5vh, 1.25rem);">
+                <div>
+                    <div class="stat-value" style="color: var(--cyan);">$1.5&ndash;3M</div>
+                    <div class="stat-label">Year 1 Diversified Revenue</div>
+                </div>
+                <div>
+                    <div class="stat-value" style="color: var(--amber);">vasig/</div>
+                    <div class="stat-label">B2B Asset Already Built</div>
+                </div>
+                <div>
+                    <div class="stat-value" style="color: var(--magenta);">$25B+</div>
+                    <div class="stat-label">DAO Treasury TAM</div>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.15rem, 0.3vh, 0.25rem);">Alchemy/Infura charge $49&ndash;999/mo for node access. Privy charges $0.01&ndash;0.05/wallet/mo for embedded wallets. Fireblocks charges $500&ndash;10K/mo for institutional MPC custody. Our stack covers all three layers.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE: SECTION TRANSITION — GO TO MARKET
+         =========================================== -->
+    <section class="slide title-slide" aria-label="Go to Market Section">
+        <div class="title-orb title-orb--1" style="opacity: 0.15;"></div>
+        <div class="title-orb title-orb--2" style="opacity: 0.15;"></div>
+
+        <div class="slide-content">
+            <div class="badge reveal">Go to Market</div>
+            <h1 class="reveal" style="font-size: var(--h2-size); background: linear-gradient(135deg, var(--cyan), var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">How We Get Users</h1>
+            <p class="subtitle reveal" style="max-width: min(55ch, 80vw);">Rename in-place like Trust Wallet and MyEtherWallet did. Let the product demo itself like ChatGPT did. Let engineers be the brand like Uniswap and Monad did.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE: STATION REBRAND PLAYBOOK
+         =========================================== -->
+    <section class="slide" aria-label="Station Rebrand">
+        <div class="slide-content">
+            <div class="badge reveal">Go to Market</div>
+            <h2 class="reveal">Station &rarr; Vulti Agent</h2>
+            <p class="section-desc reveal">Trust Wallet and MEW both renamed app listings in-place during rebrands, preserved ratings, downloads, and user base. We do the same.</p>
+
+            <div class="timeline reveal">
+                <div class="week-row">
+                    <div class="week-label">Now</div>
+                    <div class="week-items">
+                        <span class="week-item">Hype screen in Station app,"Something is coming"</span>
+                        <span class="week-item">Station X account teases rebrand,"We haven't forgotten you"</span>
+                        <span class="week-item">In-app countdown banner with email capture</span>
+                    </div>
+                </div>
+                <div class="week-row">
+                    <div class="week-label" style="color: var(--magenta);">Week 2</div>
+                    <div class="week-items">
+                        <span class="week-item">Thread from Vultisig founder on X: "We acquired Station because it had the user base and the app store presence. Now we're giving it an AI brain." Frames the rebrand as Station graduating, not dying</span>
+                        <span class="week-item">App listing renamed: "Vulti Agent (formerly Station)"</span>
+                        <span class="week-item">Give 15&ndash;20 mid-tier crypto influencers (10K&ndash;100K followers) early access, these creators actually use the product on camera, which consistently outperforms paid promotions</span>
+                    </div>
+                </div>
+                <div class="week-row">
+                    <div class="week-label" style="color: var(--amber);">Week 3</div>
+                    <div class="week-items">
+                        <span class="week-item">Ship the agentic wallet update to Station users</span>
+                        <span class="week-item">Early Supporter attestation (on-chain badge) for first-week updaters</span>
+                        <span class="week-item">"Formerly Station" in subtitle for 2&ndash;3 months, then drop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE: DIFFERENTIATION & CONTENT STRATEGY
+         =========================================== -->
+    <section class="slide" aria-label="Differentiation">
+        <div class="slide-content">
+            <div class="badge reveal">Go to Market</div>
+            <h2 class="reveal">The AI Demo Is the Marketing</h2>
+            <p class="section-desc reveal">ChatGPT grew because people shared screenshots of outputs. We have the same dynamic, nobody else has a natural language wallet. Every demo is marketing.</p>
+
+            <div class="feature-grid feature-grid--2x2 reveal">
+                <div class="feature-card">
+                    <div class="card-icon">&#x1F4F1;</div>
+                    <h3>Short-Form Demos</h3>
+                    <p>"I asked my wallet to swap ETH to USDC and it did it." Side-by-side: 8 clicks in MetaMask vs. 1 sentence in Vulti Agent.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#x1F512;</div>
+                    <h3>MPC Security Narrative</h3>
+                    <p>"No seed phrase. Keys split across devices with threshold cryptography." Fireblocks built an $8B business on "institutional-grade MPC", we bring the same model to consumers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#x1F310;</div>
+                    <h3>Ecosystem Visibility</h3>
+                    <p>Vultisig already has WalletConnect integrations. Listing on DeFi Llama's wallet tracker and chain ecosystem pages (THORChain, Cosmos) puts us in front of users actively browsing for wallets, free, high-intent distribution.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">&#x1F916;</div>
+                    <h3>AI &times; Crypto Positioning</h3>
+                    <p>AI agent platforms (Bittensor, CrewAI, etc.) need wallet infrastructure. Our MCP server lets any AI agent manage a wallet programmatically, positioning us as the default wallet layer for the fast-growing AI agent ecosystem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE: BUILDER-LED MARKETING
+         =========================================== -->
+    <section class="slide" aria-label="Builder-Led Marketing">
+        <div class="slide-content">
+            <div class="badge badge--magenta reveal">Builder-Led Marketing</div>
+            <h2 class="reveal">Engineers Are the Brand</h2>
+            <p class="section-desc reveal">In crypto, technical depth signals legitimacy, polished marketing signals scam. Monad, Eigenlayer, and Uniswap all grew through engineers posting technical content. Our version for a 4-person team:</p>
+
+            <div class="feature-grid feature-grid--3x2 reveal">
+                <div class="feature-card" style="border-left: 3px solid var(--cyan);">
+                    <h3 style="color: var(--cyan);">@vultisig: 1 Thread / Week</h3>
+                    <p>Every Friday, one "what we shipped this week" thread with screenshots or a demo clip. Owned by the community manager (see below), sourced from engineers. This single artifact does more than daily filler posts.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--magenta);">
+                    <h3 style="color: var(--magenta);">Engineers: Post When It's Interesting</h3>
+                    <p>No schedule, no quota. When you hit a cool bug, a nice before/after, or a wild edge case, post it. Tag @vultisig. Some weeks that's 3 posts, some weeks it's zero. Authenticity &gt; consistency.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--amber);">
+                    <h3 style="color: var(--amber);">"Building @vultisig" in Bios</h3>
+                    <p>Vulti Agent is a sub-product of Vultisig, one brand, one audience. Every engineer's bio links to @vultisig, and a pinned tweet explains what Vulti Agent is. Every personal post passively drives discovery back to the product.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--blue);">
+                    <h3 style="color: var(--blue);">Quote-Tweet &gt; Retweet</h3>
+                    <p>When @vultisig amplifies engineer posts, quote-tweet with added context ("our MPC engineer just shipped X"). Quote tweets get 2&ndash;3&times; the reach of plain retweets. This is the entire amplification playbook.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--cyan); grid-column: span 2; background: rgba(0, 255, 204, 0.04);">
+                    <h3 style="color: var(--cyan);">Who Runs @vultisig Day-to-Day</h3>
+                    <p>A dedicated community manager / marketing-ops hire. Writes the weekly ship thread, handles replies and DMs, quote-tweets engineer posts, manages Discord community. Engineers provide the raw material (screenshots, clips, technical context); the CM shapes and publishes it. This is a standalone role, not an engineer's side job. Budget: ~$3&ndash;5K/mo for a crypto-native CM (part-time or contractor). Can start Phase 1.</p>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">Quality over quantity. One substantive thread per week beats seven filler posts, crypto audiences are saturated with hype and actively filter it out.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE: USER ACQUISITION ENGINE
+         =========================================== -->
+    <section class="slide" aria-label="User Acquisition">
+        <div class="slide-content">
+            <div class="badge reveal">Go to Market</div>
+            <h2 class="reveal">Where 10K Users Come From</h2>
+            <p class="section-desc reveal">The rebrand seeds the base. Three engines sustain growth after the buzz fades.</p>
+
+            <div class="phase-row reveal">
+                <div class="phase-card phase-card--1">
+                    <span class="phase-num">~40% / Rebrand Conversion</span>
+                    <h3>Station User Base</h3>
+                    <p>Existing Station users migrate via in-app update. Hype screen + early supporter badge drives urgency. App store listing renamed in-place&mdash;preserves ratings, downloads, and SEO. Trust Wallet and MEW both did this successfully during their rebrands.</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted); margin-top: clamp(0.2rem, 0.4vh, 0.3rem);">This is the launch spike&mdash;not the growth engine.</p>
+                </div>
+                <div class="phase-card phase-card--2">
+                    <span class="phase-num">~35% / AI Agent Ecosystem</span>
+                    <h3>Default Wallet for AI</h3>
+                    <p>Every AI agent that needs to transact on-chain becomes a distribution channel. The MCP server means Claude, GPT, and custom agents all funnel users to Vultisig wallets. Phantom became the default wallet for Solana dApps. We become the default wallet for AI agents. List on agent directories, partner with agent frameworks (CrewAI, LangChain, AutoGPT).</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted); margin-top: clamp(0.2rem, 0.4vh, 0.3rem);">No competitor has this channel.</p>
+                </div>
+                <div class="phase-card phase-card--3">
+                    <span class="phase-num">~25% / Demo-Driven Organic</span>
+                    <h3>Product Sells Itself</h3>
+                    <p>"I asked my wallet to swap ETH to USDC"&mdash;screenshots and clips go viral the way early ChatGPT screenshots did. Target crypto media for the AI-native angle. SEO on emerging queries: "AI crypto wallet", "chat-driven DeFi". 15&ndash;20 mid-tier crypto influencers (10K&ndash;100K followers) with early access for authentic product demos.</p>
+                    <p style="font-size: var(--small-size); color: var(--text-muted); margin-top: clamp(0.2rem, 0.4vh, 0.3rem);">Compounds with every new feature shipped.</p>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">Post-10K sustained channels: MCP ecosystem growth (every new AI agent = distribution), chain partnerships and co-marketing (newer L2s pay for wallet integrations), referral program with on-chain rewards, and SEO on AI+crypto queries as the category matures.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 20: END STATE / VISION
          =========================================== -->
     <section class="slide vision-slide" aria-label="Vision">
         <div class="title-orb title-orb--1"></div>
