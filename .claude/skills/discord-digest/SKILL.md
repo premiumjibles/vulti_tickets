@@ -29,7 +29,7 @@ For each repo, run in parallel:
 
 1. `git -C <path> fetch --all --quiet`
 2. `git -C <path> log --all --since="24 hours ago" --format="%h|%an|%ae|%s|%ar" --no-merges`
-3. `gh pr list --repo <github> --state all --json number,title,author,state,createdAt,mergedAt,updatedAt,reviewRequests,reviews --limit 20` — filter to PRs updated in last 24h
+3. `gh pr list --repo <github> --state all --json number,title,author,state,createdAt,mergedAt,updatedAt,reviewRequests,reviews,body --limit 20` — filter to PRs updated in last 24h. Use `body` to write smarter summaries than the title alone provides.
 4. `gh run list --repo <github> --limit 3 --json status,conclusion,headBranch,event` — CI on default branch. If no runs returned or auth fails, omit CI from Needs Attention silently
 5. `gh issue list --repo <github> --state all --json number,title,author,assignees,state,createdAt,updatedAt,labels --limit 20` — filter to issues created, updated, assigned, or closed in last 24h
 
@@ -41,7 +41,7 @@ If `gh` returns an auth error, skip API data for that repo and rely on git-only.
 
 ## Step 2: Build the digest
 
-Four sections: engineer activity, issue activity, needs attention, quiet repos.
+Five sections: engineer activity, issue activity, needs attention, in-flight work, quiet repos.
 
 **Character budget:** Target 1800 chars (Discord webhook max is 2000).
 
@@ -68,6 +68,10 @@ PRs: 2 merged
 • 🔐 PR #174 vultisig-sdk (Ehsan) — PSBT signing flow <https://github.com/vultisig/vultisig-sdk/pull/174>
 • PR #42 agent-backend — open 3d, no reviewers <https://github.com/vultisig/agent-backend/pull/42>
 
+🚧 **In-Flight**
+• SDK: React Native MpcEngine integration (NeOMakinG)
+• agent-backend: Webhook retry logic (gomes)
+
 💤 No activity: station (last: 2mo), vultiserver (last: 5d)
 </example>
 
@@ -85,13 +89,16 @@ PRs: 2 open
 • ❌ CI failing on main: vultisig-sdk (2 runs failed)
 • 🔐 PR #176 vultisig-sdk — MpcEngine, touches mpc/dkls <https://github.com/vultisig/vultisig-sdk/pull/176>
 
+🚧 **In-Flight**
+• vultiagent-cli: Biome + CI setup (Jibles)
+
 💤 No activity: station (last: 2mo), mcp (last: 1d), vultiagent-cli (last: 3d)
 </example>
 
 ### Engineer activity (👤)
 
 - Only tracked engineers. Group by engineer, not repo. 2-4 lines each
-- Summarize related commits into one line
+- Summarize related commits into one line. When a PR has a `body`, use it to write a more informative summary than the title alone
 - Header: commit count + repo spread. PR line: merged/open counts
 - Only name specific PRs if notable
 
@@ -110,6 +117,10 @@ Surface up to 3 items, prioritized by risk then staleness. Always include all se
 3. **Stale PRs** — Open >2 days AND no review activity in the last 24h
 
 Include a bare URL for each flagged PR: `<https://github.com/<org>/<repo>/pull/N>`
+
+### In-Flight Work (🚧)
+
+Show open PRs from tracked engineers that were created or updated in the last 24h and are NOT already mentioned in Needs Attention. One line per PR: title, author, repo. Cap at 4 items. This surfaces what's coming next, not just what landed.
 
 ### Quiet repos (💤)
 

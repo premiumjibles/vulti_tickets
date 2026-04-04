@@ -1343,6 +1343,124 @@
     </section>
 
     <!-- ===========================================
+         SLIDE: VULT STAKING BONUS
+         =========================================== -->
+    <section class="slide" aria-label="VULT Staking Bonus">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">VULT Staking Bonus</h2>
+            <p class="section-desc reveal">Stake VULT, earn bonus premium ops on any tier. No cap &mdash; the more you stake, the more you get. Longer locks earn more.</p>
+
+            <div class="model-table reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Staked VULT</th>
+                            <th>USD Locked</th>
+                            <th>30-day</th>
+                            <th>90-day (1.3&times;)</th>
+                            <th style="background: var(--cyan-dim); border-radius: 4px;">180-day (1.6&times;)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="mono" style="color: var(--text-primary);">5,000</td>
+                            <td class="mono" style="color: var(--text-muted);">$635</td>
+                            <td class="mono">+93</td>
+                            <td class="mono">+121</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">+150</td>
+                        </tr>
+                        <tr>
+                            <td class="mono" style="color: var(--text-primary);">25,000</td>
+                            <td class="mono" style="color: var(--text-muted);">$3,175</td>
+                            <td class="mono">+313</td>
+                            <td class="mono">+407</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">+500</td>
+                        </tr>
+                        <tr>
+                            <td class="mono" style="color: var(--text-primary);">100,000</td>
+                            <td class="mono" style="color: var(--text-muted);">$12,700</td>
+                            <td class="mono">+882</td>
+                            <td class="mono">+1,147</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">+1,411</td>
+                        </tr>
+                        <tr>
+                            <td class="mono" style="color: var(--text-primary);">500,000</td>
+                            <td class="mono" style="color: var(--text-muted);">$63,500</td>
+                            <td class="mono">+2,943</td>
+                            <td class="mono">+3,826</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">+4,709</td>
+                        </tr>
+                        <tr>
+                            <td class="mono" style="color: var(--text-primary);">1,000,000</td>
+                            <td class="mono" style="color: var(--text-muted);">$127,000</td>
+                            <td class="mono">+4,948</td>
+                            <td class="mono">+6,432</td>
+                            <td class="mono" style="color: var(--cyan); background: var(--cyan-dim);">+7,917</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cost-lever reveal" style="background: var(--bg-card); border: 1px solid rgba(255, 170, 0, 0.2); border-radius: clamp(6px, 1vw, 12px); padding: clamp(0.6rem, 1.2vw, 1rem); margin-top: clamp(0.5rem, 1vh, 0.75rem); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(0.5rem, 1.5vw, 1.25rem);">
+                <div>
+                    <h3 style="color: var(--cyan); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Uncapped Curve</h3>
+                    <p style="font-size: var(--small-size);">Formula: (staked / 12)<sup>0.75</sup> &times; lock multiplier. Never caps &mdash; every additional VULT earns more. K=12 is a governance parameter, adjustable over time.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--amber); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Time-Lock Multiplier</h3>
+                    <p style="font-size: var(--small-size);">30-day = 1&times;, 90-day = 1.3&times;, 180-day = 1.6&times;. Rewards conviction, discourages mercenary capital. Modeled after Curve/1inch ve-tokenomics.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--magenta); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Token Flywheel</h3>
+                    <p style="font-size: var(--small-size);">Buy pressure + supply removal from staking. 25K VULT staked 180 days = 500 bonus ops ($50/mo value) &rarr; ~19% annual yield at current price. Funded by real revenue.</p>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">Stacking example: Pro ($10/mo, 100 ops) + 100K VULT staked 180 days = 1,511 premium ops. Subscriptions + staking complement, never compete. Tier features (stop-loss, TWAP, agents) still require upgrade.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE: VULT TOKEN ECONOMICS
+         =========================================== -->
+    <section class="slide" aria-label="VULT Token Economics">
+        <div class="slide-content">
+            <div class="badge badge--amber reveal">Cost &amp; Pricing</div>
+            <h2 class="reveal">VULT Token Economics</h2>
+            <p class="section-desc reveal">Staking bonus valued via dividend discount model. Premium op = $0.10 (Pro per-op rate). DIEM ($1/day inference per token) as market reference.</p>
+
+            <div class="feature-grid feature-grid--3x2 reveal" style="grid-template-rows: auto;">
+                <div class="feature-card" style="border-left: 3px solid var(--cyan);">
+                    <h3 style="color: var(--cyan); font-size: clamp(0.85rem, 1.2vw, 1rem);">Yield at Current Price</h3>
+                    <p style="font-size: var(--small-size);">25K VULT staked 180 days &rarr; 500 ops/mo &rarr; $600/yr on $3,175 locked = <strong style="color: var(--text-primary);">~19% annual yield</strong>. DIEM equilibrium ceiling: ~18%. Right in the zone.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--magenta);">
+                    <h3 style="color: var(--magenta); font-size: clamp(0.85rem, 1.2vw, 1rem);">Dividend Discount Model</h3>
+                    <p style="font-size: var(--small-size);">Fair Value = Annual Ops Value / Required Return. At 20% required return: <strong style="color: var(--text-primary);">$0.12/VULT</strong> theoretical floor from staking utility alone. Current price: $0.127.</p>
+                </div>
+                <div class="feature-card" style="border-left: 3px solid var(--amber);">
+                    <h3 style="color: var(--amber); font-size: clamp(0.85rem, 1.2vw, 1rem);">In-Kind Discount</h3>
+                    <p style="font-size: var(--small-size);">Markets value in-kind benefits at ~40% of cash (DIEM: $800 price vs $2,000 theoretical). Staking utility provides a <strong style="color: var(--text-primary);">price floor, not a ceiling</strong>. Speculation + adoption add on top.</p>
+                </div>
+            </div>
+
+            <div class="cost-lever reveal" style="background: var(--bg-card); border: 1px solid rgba(0, 255, 204, 0.15); border-radius: clamp(6px, 1vw, 12px); padding: clamp(0.6rem, 1.2vw, 1rem); margin-top: clamp(0.5rem, 1vh, 0.75rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.75rem, 2vw, 1.5rem);">
+                <div>
+                    <h3 style="color: var(--cyan); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Reflexive Loop</h3>
+                    <p style="font-size: var(--small-size);">Generous yield &rarr; users buy VULT to stake &rarr; circulating supply drops &rarr; price rises &rarr; yield compresses (%) but absolute value holds &rarr; supply reduction amplifies further. This is the DIEM playbook: $1/day generosity triggered a reflexive loop from single digits to $800.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--amber); font-size: var(--body-size); margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);">Cost Sustainability</h3>
+                    <p style="font-size: var(--small-size);">Worst-case whale (1M VULT, 180-day): ~$240/mo LLM cost for $127K locked = 2.3%/yr. In practice, 40&ndash;60% op utilization halves real cost. Funded by subscription + affiliate revenue, not token inflation. K is adjustable via governance.</p>
+                </div>
+            </div>
+
+            <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.25rem, 0.5vh, 0.5rem);">Strategy: launch generous (K=12) to bootstrap staking demand and supply shock. Adjust K after 6 months of utilization data. Start aggressive, tighten with data.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
          SLIDE 18: PATH TO PROFITABILITY
          =========================================== -->
     <section class="slide" aria-label="Path to Profitability">

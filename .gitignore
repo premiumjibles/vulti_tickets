@@ -7,6 +7,11 @@ station/
 vultiagent-cli/
 vultiserver/
 vultiagent-app/
+agent-backend/
+mcp/
+
+# Tooling
+.playwright-mcp/
 
 # Claude local config (memory, settings)
 .claude/*
