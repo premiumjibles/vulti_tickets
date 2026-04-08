@@ -16,3 +16,6 @@ mcp/
 # Claude local config (memory, settings)
 .claude/*
 !.claude/skills/
+
+# Tickets
+.tickets/
